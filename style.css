@@ -192,9 +192,14 @@ main {
 
 .timeline-grid {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	align-items: flex-start;
 	gap: 22px;
+	height: 300px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 4px 10px 10px 4px;
+	scroll-snap-type: x mandatory;
 }
 
 .timeline-card {
@@ -204,8 +209,9 @@ main {
 	background: var(--white);
 	border-top: 5px solid var(--intel-blue);
 	box-shadow: 0 10px 25px rgba(0, 40, 92, 0.08);
-	flex: 1 1 290px;
+	flex: 0 0 calc((100% - 44px) / 3);
 	padding: 0 22px 24px;
+	scroll-snap-align: start;
 	transition: background-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
 }
 
@@ -221,7 +227,7 @@ main {
 
 .timeline-card:hover,
 .timeline-card:focus {
-	transform: translateY(-8px);
+	transform: translateY(-8px) scale(1.03);
 	background-color: #eefaff;
 	box-shadow: 0 16px 32px rgba(0, 40, 92, 0.16);
 }
@@ -246,6 +252,7 @@ main {
 	margin: 20px 0 4px;
 	font: bold 14px Arial, sans-serif;
 	letter-spacing: 2px;
+	transition: opacity 0.25s ease;
 }
 
 .timeline-card h3 {
@@ -254,6 +261,7 @@ main {
 	font-size: 25px;
 	font-weight: normal;
 	overflow-wrap: break-word;
+	transition: opacity 0.25s ease;
 }
 
 .timeline-card img {
@@ -266,31 +274,38 @@ main {
 	display: block;
 	filter: saturate(0.8);
 	transform-origin: center;
-	transition: transform 0.35s ease, filter 0.35s ease;
+	transition: opacity 0.25s ease, filter 0.35s ease;
 }
 
 .timeline-card:hover img,
 .timeline-card:focus img {
-	transform: scale(1.06);
-	filter: saturate(1) brightness(1.03);
+	opacity: 0;
 }
 
 .timeline-card p {
-	max-height: 0;
+	position: absolute;
+	top: 22px;
+	right: 22px;
+	left: 22px;
 	margin: 0;
 	opacity: 0;
 	overflow: hidden;
 	color: #496579;
 	font-size: 15px;
 	line-height: 1.55;
-	transition: max-height 0.35s ease, margin 0.35s ease, opacity 0.35s ease;
+	transition: opacity 0.25s ease;
 }
 
 .timeline-card:hover p,
 .timeline-card:focus p {
-	max-height: 500px;
-	margin-top: 20px;
 	opacity: 1;
+}
+
+.timeline-card:hover h2,
+.timeline-card:hover h3,
+.timeline-card:focus h2,
+.timeline-card:focus h3 {
+	opacity: 0;
 }
 
 footer {
@@ -342,10 +357,16 @@ footer span {
 
 	.timeline-grid {
 		gap: 18px;
+		height: 950px;
+		flex-direction: column;
+		overflow-x: hidden;
+		overflow-y: auto;
+		scroll-snap-type: y mandatory;
 	}
 
 	.timeline-card {
-		flex-basis: 100%;
+		flex: 0 0 auto;
+		width: 100%;
 	}
 
 	.timeline-card img {
